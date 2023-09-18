@@ -2,6 +2,9 @@ import { type AddressInfo } from "net";
 
 import express from "express";
 import { GracefulShutdownManager } from "@moebius/http-graceful-shutdown";
+import cors from "cors";
+
+import indexHandler from "./routes/index";
 
 const app = express();
 app.disable("x-powered-by");
@@ -14,8 +17,12 @@ if (process.env.NODE_ENV === "development") {
   const morgan = (await import("morgan")).default;
   app.use(morgan("tiny"));
 }
+// CORS
+app.use(cors({ origin: "http://localhost:5500" }));
 
 // ------------------------------------- Routes -------------------------------------
+app.get("/", indexHandler);
+
 // health check
 app.get("/healthz", (_, res) => {
   return res.status(200).json({ status: "available" });
