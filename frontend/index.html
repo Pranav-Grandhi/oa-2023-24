@@ -1,10 +1,79 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
-        <script type="module" src="graph.mjs"></script>
-    </head>
-    <body>
-        <div id="graph"></div>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aircraft Incident Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white py-4">
+      <h1 class="text-2xl font-semibold text-center">
+        Aircraft Incident Analysis
+      </h1>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container mx-auto py-8 px-4">
+      <!-- Form to configure the graph -->
+      <form id="graphConfig" class="bg-white shadow-md rounded px-8 py-6 mb-4">
+        <div class="mb-4">
+          <label for="xAxis" class="block text-gray-700 font-bold mb-2"
+            >X-Axis Data:</label
+          >
+          <select
+            id="xAxis"
+            class="w-full p-2 border rounded shadow appearance-none"
+          >
+            <!-- Add options based on your available data columns -->
+            <option value="Year">Year</option>
+            <option value="Quarter">Quarter</option>
+            <option value="Month">Month</option>
+            <option value="Day">Day</option>
+            <option value="Country/Region">Country/Region</option>
+            <option value="Aircraft Manufacturer">Aircraft Manufacturer</option>
+            <option value="Aircraft">Aircraft</option>
+            <option value="Location">Location</option>
+            <option value="Operator">Operator</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label for="yAxis" class="block text-gray-700 font-bold mb-2"
+            >Y-Axis Data:</label
+          >
+          <select
+            id="yAxis"
+            class="w-full p-2 border rounded shadow appearance-none"
+          >
+            <!-- Add options based on your available data columns -->
+            <option value="Sum of Ground">Sum of Ground</option>
+            <option value="Sum of Fatalities (air)">
+              Sum of Fatalities (air)
+            </option>
+            <option value="Sum of Aboard">Sum of Aboard</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+        >
+          Generate Graph
+        </button>
+      </form>
+
+      <!-- Container for the chart -->
+      <div class="bg-white shadow-md rounded p-4">
+        <canvas id="myChart" width="400" height="200"></canvas>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
 </html>
