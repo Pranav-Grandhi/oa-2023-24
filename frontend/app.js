@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  let chart = null; // Initialize chart as null
+
   const form = document.getElementById("graphConfig");
   const xSelect = document.getElementById("xAxis");
   const ySelect = document.getElementById("yAxis");
@@ -14,23 +16,27 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(`http://localhost:8080/data?x=${xAxis}&y=${yAxis}`)
       .then((response) => response.json())
       .then((data) => {
+        // Clear the previous chart if it exists
+        if (chart) {
+          chart.destroy();
+        }
+        
         // Create and render the line chart
-        renderLineChart(data, chartContainer);
+        chart = renderLineChart(data, chartContainer);
       });
   });
 
   function renderLineChart(data, container) {
     const ctx = container.getContext("2d");
-  
-    new Chart(ctx, {
-      type: "line", // Change chart type to "line"
+
+    return new Chart(ctx, {
+      type: "line",
       data: {
         labels: data.x,
         datasets: [
           {
             label: ySelect.options[ySelect.selectedIndex].text,
             data: data.y,
-            // You can customize line properties here if needed
           },
         ],
       },
@@ -40,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
             beginAtZero: true,
           },
         },
-        // You can add more line chart options as needed
       },
     });
   }
